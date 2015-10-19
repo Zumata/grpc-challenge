@@ -1,0 +1,48 @@
+syntax="proto3";
+
+package treasurehunt;
+
+service TreasureHunt {
+  rpc Join(JoinRequest) returns (JoinResponse) {};
+  rpc Move(MoveRequest) returns (MoveResponse) {};
+  rpc GetTreasure(GetTreasureRequest) returns (GetTreasureResponse) {};
+}
+
+message JoinRequest {
+  string name = 1;
+}
+
+message Position {
+  int64 x = 1;
+  int64 y = 2;
+}
+
+message JoinResponse {
+  string id = 1;
+  Position position = 2;
+  int64 max_x = 3;
+  int64 max_y = 4;
+}
+
+message MoveRequest {
+  enum Direction {
+    LEFT = 0;
+    RIGHT = 1;
+    UP = 2;
+    DOWN = 3;
+  }
+  Direction direction = 1;
+}
+
+message MoveResponse {
+  Position position = 1;
+  bool treasureGotten = 2;
+  int64 score = 3;
+}
+
+message GetTreasureRequest {
+}
+
+message GetTreasureResponse {
+  repeated Position position = 1;
+}
